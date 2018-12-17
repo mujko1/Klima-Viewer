@@ -21,4 +21,11 @@ export class LocationService {
     this.http.post(`${this.uri}/add`, obj)
         .subscribe(res => console.log('Done'));
   }
+
+  getLocations() {
+    return this
+           .http
+           .get(`${this.uri}`);
+  };
+
 }
