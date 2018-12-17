@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import Location from '../Location';
+import { LocationService } from '../location.service';
 
 @Component({
   selector: 'app-live-weather',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LiveWeatherComponent implements OnInit {
 
-  constructor() { }
+  locations: Location[];
+
+  constructor(private locationService: LocationService) { }
 
   ngOnInit() {
+    this.locationService
+      .getLocations()
+      .subscribe((data: Location[]) => {
+        this.locations = data;
+    });
   }
-
 }
