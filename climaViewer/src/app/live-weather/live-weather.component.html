@@ -1,3 +1,30 @@
-<p>
-  live-weather works!
-</p>
+
+<h1>Live Weather</h1>
+<h4>Add below your city:</h4>
+<mat-divider></mat-divider>
+<mat-grid-list cols="4" rowHeight="300px">
+  
+  <mat-grid-tile class="myCard"
+      *ngFor="let tile of tiles"
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows"
+      [style.background]="tile.color">
+      <mat-card>
+        <mat-card-title>{{ tile.cityName }}</mat-card-title>
+        <mat-card-content><mat-icon>{{ tile.icon }}</mat-icon></mat-card-content>
+        <mat-card-content>{{ tile.temp }}</mat-card-content>
+        <mat-card-content>Wind: {{ tile.wind }}</mat-card-content>
+        <mat-card-content>Pressure: {{ tile.pressure }}</mat-card-content>
+        <mat-card-content>Precitipation: {{ tile.precitipation }}</mat-card-content>
+      </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+      <mat-card>
+          <mat-card-content>
+              <app-new-city class="myCard"></app-new-city>
+          </mat-card-content>
+      </mat-card>
+  </mat-grid-tile>  
+
+</mat-grid-list>
