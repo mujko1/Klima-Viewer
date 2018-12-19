@@ -18,6 +18,7 @@ export class LiveWeatherComponent implements OnInit {
       .getLocations()
       .subscribe((data: Location[]) => {
         this.locations = data;
+        console.log(data);
     });
   }
 }

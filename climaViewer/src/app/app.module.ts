@@ -20,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TestComponent } from './test/test.component';
 import { LocationService } from './location.service';
 import { WeatherRecordService } from './weather-record.service';
+import { WeatherService } from './weather.service';
 
 const appRoutes: Routes = [
   { path: 'liveWeather', component: LiveWeatherComponent },
@@ -59,7 +60,7 @@ const appRoutes: Routes = [
     MatPaginatorModule,
     MatSortModule
   ],
-  providers: [LocationService, WeatherRecordService],
+  providers: [LocationService, WeatherRecordService, WeatherService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
