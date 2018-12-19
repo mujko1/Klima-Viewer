@@ -6,13 +6,14 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatInputModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule, MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import { TestTableComponent } from './test-table/test-table.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
 import { LiveWeatherComponent } from './live-weather/live-weather.component';
 import { HistoricalComponent } from './historical/historical.component';
 import { AboutComponent } from './about/about.component';
+import { NewCityComponent } from './new-city/new-city.component';
 
 const appRoutes: Routes = [
   { path: 'liveWeather', component: LiveWeatherComponent },
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     LiveWeatherComponent,
     HistoricalComponent,
-    AboutComponent
+    AboutComponent,
+    NewCityComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -46,7 +48,8 @@ const appRoutes: Routes = [
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
