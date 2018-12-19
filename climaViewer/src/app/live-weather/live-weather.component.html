@@ -2,27 +2,27 @@
 <h1>Live Weather</h1>
 <h4>Add below your city:</h4>
 <mat-divider></mat-divider>
-<mat-grid-list cols="4" rowHeight="300px">
+<mat-grid-list cols="4" rowHeight="1:1">
   
   <mat-grid-tile class="myCard"
-      *ngFor="let tile of tiles"
-      [colspan]="tile.cols"
-      [rowspan]="tile.rows"
-      [style.background]="tile.color">
+      *ngFor="let location of locations"
+      [colspan]="1"
+      [rowspan]="1"
+      [style.background]="transparent">
       <mat-card>
-        <mat-card-title>{{ tile.cityName }}</mat-card-title>
-        <mat-card-content><mat-icon>{{ tile.icon }}</mat-icon></mat-card-content>
-        <mat-card-content>{{ tile.temp }}</mat-card-content>
-        <mat-card-content>Wind: {{ tile.wind }}</mat-card-content>
-        <mat-card-content>Pressure: {{ tile.pressure }}</mat-card-content>
-        <mat-card-content>Precitipation: {{ tile.precitipation }}</mat-card-content>
+        <mat-card-title>{{ location.name }}</mat-card-title>
+        <mat-card-content><mat-icon></mat-icon></mat-card-content>
+        <mat-card-content>{{location.response.main.temp}}</mat-card-content>
+        <mat-card-content>Wind: {{location.response.wind.speed}}32</mat-card-content>
+        <mat-card-content>Pressure: {{location.response.main.pressure}}</mat-card-content>
+        <mat-card-content>Precitipation: xy</mat-card-content>
       </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile>
       <mat-card>
           <mat-card-content>
-              <app-new-city class="myCard"></app-new-city>
+              <app-new-city></app-new-city>
           </mat-card-content>
       </mat-card>
   </mat-grid-tile>  

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Location from '../Location';
 import { LocationService } from '../location.service';
+import { WeatherService } from '../weather.service';
 
 export interface Tile {
   color: string;
@@ -22,23 +23,22 @@ export interface Tile {
 })
 export class LiveWeatherComponent implements OnInit {
 
-  locations: Location[];
+  locations: any[];
 
-  constructor(private locationService: LocationService) { }
-
-  //DB LOOP, IF ARRAY CONTAINS %4=0 TILES THEN ADD NEW mat-grid-list
-  tiles: Tile[] = [
-    {cols: 1, rows: 2, color: 'transparent', cityName: 'Bern', icon: 'brightness_low', temp: '4°C', wind:'xy', pressure:'xy', precitipation:'xy'},
-    {cols: 1, rows: 2, color: 'transparent', cityName: 'Bern', icon: 'brightness_low', temp: '4°C', wind:'xy', pressure:'xy', precitipation:'xy'},
-    {cols: 1, rows: 2, color: 'transparent', cityName: 'Bern', icon: 'brightness_low', temp: '4°C', wind:'xy', pressure:'xy', precitipation:'xy'},
-  ];
+  constructor(private locationService: LocationService, private weatherService: WeatherService) { }
 
   ngOnInit() {
     this.locationService
       .getLocations()
       .subscribe((data: Location[]) => {
         this.locations = data;
-        console.log(data);
+        for(let location of this.locations){
+          this.weatherService.getCurrentWeatherData(location.name).subscribe(res => {
+            location.response = res;
+            console.log(location)
+          })
+        }
+        //console.log(data);
     });
   }
 }
