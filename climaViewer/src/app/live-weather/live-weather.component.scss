@@ -1,5 +1,5 @@
 h1 {
- padding-left: 20px;
+    padding-left: 20px;
 }
 
 h4 {
@@ -7,22 +7,16 @@ h4 {
 }
 
 mat-grid-tile {
-    padding-top: 30px;
+    padding-top: 50px;
     padding-bottom: 30px;
 }
 
-.myCard {
-
-    margin-top: -150px;
+mat-divider {
+    margin-bottom: 20px;
 }
 
 .mat-card {
-    min-height: 230px;
     min-width: 220px;
-    max-width: 220px;
+    margin-bottom: 50px;
+    min-height: 207px;
 }
-
-mat-grid-list {
-    margin-bottom: -300px;
-}
-
