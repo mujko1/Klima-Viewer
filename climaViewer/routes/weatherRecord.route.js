@@ -3,11 +3,11 @@ const app = express();
 const weatherRecordRoutes = express.Router();
 
 // Require weatherRecord model in our routes module
-let weatherRecord = require('../models/WeatherRecord');
+let WeatherRecord = require('../models/WeatherRecord');
 
 // Defined store route
 weatherRecordRoutes.route('/add').post(function (req, res) {
-  let weatherRecord = new weatherRecord(req.body);
+  let weatherRecord = new WeatherRecord(req.body);
   weatherRecord.save()
     .then(weatherRecord => {
       res.status(200).json({'weatherRecord': 'weatherRecord in added successfully'});

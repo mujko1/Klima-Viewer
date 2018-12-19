@@ -19,7 +19,7 @@ let Location = new Schema({
     type: String
   }
 },{
-    collection: 'location'
+    collection: 'Location'
 });
 
 module.exports = mongoose.model('Location', Location);

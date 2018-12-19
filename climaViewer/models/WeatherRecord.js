@@ -20,9 +20,12 @@ let WeatherRecord = new Schema({
   },
   date: {
     type: String
+  },
+  response: {
+    type: String
   }
 },{
-    collection: 'weatherRecord'
+    collection: 'WeatherRecord'
 });
 
 module.exports = mongoose.model('WeatherRecord', WeatherRecord);

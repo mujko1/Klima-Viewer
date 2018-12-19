@@ -5,4 +5,5 @@ export default class WeatherRecord {
     pressure: Number;
     precipitation: Number;
     date: String;
+    response: String;
   }
