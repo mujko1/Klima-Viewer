@@ -15,10 +15,19 @@ import { HistoricalComponent } from './historical/historical.component';
 import { AboutComponent } from './about/about.component';
 import { NewCityComponent } from './new-city/new-city.component';
 
+// Restfull Service
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { TestComponent } from './test/test.component';
+import { LocationService } from './location.service';
+import { WeatherRecordService } from './weather-record.service';
+import { WeatherService } from './weather.service';
+
 const appRoutes: Routes = [
   { path: 'liveWeather', component: LiveWeatherComponent },
   { path: 'historical', component: HistoricalComponent },
-  { path: 'about', component: AboutComponent }
+  { path: 'about', component: AboutComponent },
+  { path: 'test', component: TestComponent }
 ];
 
 @NgModule({
@@ -31,10 +40,13 @@ const appRoutes: Routes = [
     HistoricalComponent,
     AboutComponent,
     NewCityComponent
+    TestComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
+    FormsModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
@@ -51,7 +63,7 @@ const appRoutes: Routes = [
     MatSortModule,
     MatInputModule
   ],
-  providers: [],
+  providers: [LocationService, WeatherRecordService, WeatherService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

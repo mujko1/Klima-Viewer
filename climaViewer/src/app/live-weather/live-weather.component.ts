@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import Location from '../Location';
+import { LocationService } from '../location.service';
 
 export interface Tile {
   color: string;
@@ -19,8 +21,10 @@ export interface Tile {
   styleUrls: ['./live-weather.component.scss']
 })
 export class LiveWeatherComponent implements OnInit {
-  
-  constructor() { }
+
+  locations: Location[];
+
+  constructor(private locationService: LocationService) { }
 
   //DB LOOP, IF ARRAY CONTAINS %4=0 TILES THEN ADD NEW mat-grid-list
   tiles: Tile[] = [
@@ -30,8 +34,13 @@ export class LiveWeatherComponent implements OnInit {
   ];
 
   ngOnInit() {
+    this.locationService
+      .getLocations()
+      .subscribe((data: Location[]) => {
+        this.locations = data;
+        console.log(data);
+    });
   }
-
 }
 
 
