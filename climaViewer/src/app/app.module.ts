@@ -39,7 +39,7 @@ const appRoutes: Routes = [
     LiveWeatherComponent,
     HistoricalComponent,
     AboutComponent,
-    NewCityComponent
+    NewCityComponent,
     TestComponent
   ],
   imports: [
