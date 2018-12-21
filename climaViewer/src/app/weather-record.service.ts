@@ -10,6 +10,23 @@ export class WeatherRecordService {
 
   constructor(private http: HttpClient) { }
 
+  addWeatherRecord(data){
+    var weatherRecord = {
+      id: data.id,
+      temperature: data.main.temp,
+      wind: data.wind.speed,
+      pressure: data.main.pressure,
+      precipitation: (typeof (data.precipitation) !== 'undefined') ? data.precipitation : "",
+      date: String(new Date()),
+      response: JSON.stringify(data)
+    };
+
+
+    this.http.post(`${this.uri}/add`, weatherRecord)
+        .subscribe(res => console.log('Save data to weatherRecord'));
+  }
+
+
   getWeatherRecords() {
     return this
            .http

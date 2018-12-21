@@ -9,17 +9,17 @@ export class LocationService {
 
   constructor(private http: HttpClient) { }
 
-  addLocation(name, zip, geoLocation) {
-    const obj = {
-      id: 1,
-      name: name,
-      zip: zip,
-      geoLocation: geoLocation,
-      addedDate: new Date().toISOString()
+  addLocation(data) {
+    var location = {
+      id: data.id,
+      name: data.name,
+      zip: "",
+      geoLocation: JSON.stringify(data.coord),
+      addedDate: String(new Date()),
     };
-    console.log(obj);
-    this.http.post(`${this.uri}/add`, obj)
-        .subscribe(res => console.log('Done'));
+    this.http.post(`${this.uri}/add`, location)
+        .subscribe(res => console.log('Save Data to location'));
+
   }
 
   getLocations() {

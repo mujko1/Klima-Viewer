@@ -25,15 +25,6 @@ export class TestComponent implements OnInit {
   }
 
 
-
-
-
-
-  addLocation() {
-    console.log("I try to save");
-    this.locationService.addLocation("New York", 3456, "asdas")
-  }
-
   ngOnInit() {
     console.log("Sto ne radi");
     this.chart = new Chart(this.chartRef.nativeElement, {
