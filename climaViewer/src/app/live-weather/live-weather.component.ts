@@ -3,18 +3,6 @@ import Location from '../Location';
 import { LocationService } from '../location.service';
 import { WeatherService } from '../weather.service';
 
-export interface Tile {
-  color: string;
-  cols: number;
-  rows: number;
-  cityName: string;
-  icon: string;
-  temp: string;
-  wind: string;
-  pressure: string;
-  precitipation: string;
-}
-
 
 @Component({
   selector: 'app-live-weather',
@@ -24,23 +12,17 @@ export interface Tile {
 export class LiveWeatherComponent implements OnInit {
 
   locations: any[];
+  newCity: any;
 
-  constructor(private locationService: LocationService, private weatherService: WeatherService) { }
+  constructor(private locationService: LocationService, private weatherService: WeatherService) {
 
-  //DB LOOP, IF ARRAY CONTAINS %4=0 TILES THEN ADD NEW mat-grid-list
-  tiles: Tile[] = [
-    {cols: 1, rows: 1, color: 'transparent', cityName: 'Bern', icon: 'brightness_low', temp: '4°C', wind:'xy', pressure:'xy', precitipation:'xy'},
-    {cols: 1, rows: 1, color: 'transparent', cityName: 'Bern', icon: 'brightness_low', temp: '4°C', wind:'xy', pressure:'xy', precitipation:'xy'},
-    {cols: 1, rows: 1, color: 'transparent', cityName: 'Bern', icon: 'brightness_low', temp: '4°C', wind:'xy', pressure:'xy', precitipation:'xy'},
-    {cols: 1, rows: 1, color: 'transparent', cityName: 'Bern', icon: 'brightness_low', temp: '4°C', wind:'xy', pressure:'xy', precitipation:'xy'},
-    {cols: 1, rows: 1, color: 'transparent', cityName: 'Bern', icon: 'brightness_low', temp: '4°C', wind:'xy', pressure:'xy', precitipation:'xy'},
-    {cols: 1, rows: 1, color: 'transparent', cityName: 'Bern', icon: 'brightness_low', temp: '4°C', wind:'xy', pressure:'xy', precitipation:'xy'},
-    {cols: 1, rows: 1, color: 'transparent', cityName: 'Bern', icon: 'brightness_low', temp: '4°C', wind:'xy', pressure:'xy', precitipation:'xy'},
-    {cols: 1, rows: 1, color: 'transparent', cityName: 'Bern', icon: 'brightness_low', temp: '4°C', wind:'xy', pressure:'xy', precitipation:'xy'},
-    {cols: 1, rows: 1, color: 'transparent', cityName: 'Bern', icon: 'brightness_low', temp: '4°C', wind:'xy', pressure:'xy', precitipation:'xy'},
-    {cols: 1, rows: 1, color: 'transparent', cityName: 'Bern', icon: 'brightness_low', temp: '4°C', wind:'xy', pressure:'xy', precitipation:'xy'},
+    this.newCity = "Example";
+   }
 
-  ];
+  addLocation(){
+    
+  }
+
 
   ngOnInit() {
     this.locationService

@@ -12,18 +12,25 @@
       <mat-card>
         <mat-card-title>{{ location.name }}</mat-card-title>
         <mat-card-content><mat-icon></mat-icon></mat-card-content>
-        <mat-card-content>{{location.response.main.temp}}</mat-card-content>
-        <mat-card-content>Wind: {{location.response.wind.speed}}32</mat-card-content>
-        <mat-card-content>Pressure: {{location.response.main.pressure}}</mat-card-content>
-        <mat-card-content>Precitipation: xy</mat-card-content>
+        <mat-card-content *ngIf="location.response">{{location.response.main.temp}}</mat-card-content>
+        <mat-card-content *ngIf="location.response">Wind: {{location.response.wind.speed}}32</mat-card-content>
+        <mat-card-content *ngIf="location.response">Pressure: {{location.response.main.pressure}}</mat-card-content>
+        <mat-card-content *ngIf="location.response">Precitipation: xy</mat-card-content>
       </mat-card>
     </mat-grid-tile> 
 
   <mat-grid-tile>
       <mat-card>
           <mat-card-content>
-              <app-new-city></app-new-city>
-          </mat-card-content>
+            <!-- <form>
+                <mat-form-field class="myInput" color="primary">
+                    <input  matInput placeholder="add new City">
+                </mat-form-field>
+                <button class="myButton" mat-flat-button color="primary" type="submit" (click)="">Add</button> -->
+            <!-- </form> -->
+            <input type="text" class="form-control" required [(ngModel)]="newCity">
+            <button class="myButton" color="primary" (click)="addCity()">Add</button>
+        </mat-card-content>
       </mat-card>
   </mat-grid-tile>  
 
