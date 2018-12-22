@@ -1,42 +1,43 @@
-<select class="form-control" name="sel" 
-    [(ngModel)]="chartConfig.selectedLocation " 
-    (ngModelChange)="changeLocation($event)">
-  <option *ngFor="let location of locations" [ngValue]="location">
-    {{location.name}}
-  </option>
-</select><br>
+<h1>Historical</h1>
+<h4>Search below your city:</h4>
+<mat-divider></mat-divider>
 
-<button [disabled]="!chartConfig.selectedLocation" class="myButton" color="primary" (click)="changeInterval('daily')">Daily</button>
-<button [disabled]="!chartConfig.selectedLocation" class="myButton" color="primary" (click)="changeInterval('threeHours')">3 Hours</button><br>
+<div class="historicWrapper">
+  
+<mat-form-field class="myInput">
+  <select matNativeControl [(ngModel)]="chartConfig.selectedLocation " 
+      (ngModelChange)="changeLocation($event)" placeholder="Stadt wählen">
+    <option *ngFor="let location of locations" [ngValue]="location">
+      {{location.name}}
+    </option>
+  </select>
+</mat-form-field>
 
-<select class="form-control" name="sel" 
-    [(ngModel)]="chartConfig.period.from">
-  <option *ngFor="let date of chartConfig.period.dates" [ngValue]="date">
-    {{date.value}}
-  </option>
-</select>
-<select class="form-control" name="sel" 
-    [(ngModel)]="chartConfig.period.to">
-  <option *ngFor="let date of chartConfig.period.dates" [ngValue]="date">
-    {{date.value}}
-  </option>
-</select><br>
+<mat-form-field class="myInput" color="primary">
+  <input matInput type="text" class="form-control" required [(ngModel)]="chartConfig.interval">
+</mat-form-field>
 
-<button [disabled]="!chartConfig.selectedLocation" class="myButton" color="primary" (click)="applyChartConfigs()">apply</button>
+<mat-form-field class="myInput" color="primary">
+  <input matInput type="text" class="form-control" required [(ngModel)]="chartConfig.period.from">
+</mat-form-field>
 
-<p>
-TODO: Do not forget the UI
-</p>
+<mat-form-field class="myInput" color="primary">
+<input matInput type="text" class="form-control" required [(ngModel)]="chartConfig.period.to">
+</mat-form-field>
 
-<button class="myButton" color="primary" (click)="changeData('temperature')">Temperature</button>
-<button class="myButton" color="primary" (click)="changeData('wind')">Wind</button>
-<button class="myButton" color="primary" (click)="changeData('pressure')">Pressure</button>
-<button class="myButton" color="primary" (click)="changeData('precipitation')">Precipitation</button>
+<button mat-flat-button class="myButton" color="primary" (click)="applyChartConfigs()">apply</button><br>
 
-<div class="form-group">
+<button mat-flat-button class="myButton" color="primary" (click)="changeData('temperature')">Temperature</button>
+<button mat-flat-button class="myButton" color="primary" (click)="changeData('wind')">Wind</button>
+<button mat-flat-button class="myButton" color="primary" (click)="changeData('pressure')">Pressure</button>
+<button mat-flat-button class="myButton" color="primary" (click)="changeData('precipitation')">Precipitation</button>
+
+<div class="myChart">
     <canvas #lineChart>{{ chart }}</canvas>
  </div>
 
 
  <button [disabled]="!chart" class="myButton" color="primary" (click)="exportCSV()">export csv</button>
 
+
+ </div>
