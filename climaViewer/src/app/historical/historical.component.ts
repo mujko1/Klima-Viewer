@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { TouchSequence } from 'selenium-webdriver';
 import { LocationService } from '../location.service';
+import { WeatherRecordService } from '../weather-record.service';
 
 @Component({
   selector: 'app-historical',
@@ -15,69 +16,137 @@ export class HistoricalComponent implements OnInit {
   weatherDates: any;
   labels: any;
   locations: any;
+  weatherRecords: any;
 
-  constructor(private locationService: LocationService) {
+  constructor(private locationService: LocationService, private weatherRecordService: WeatherRecordService) {
+
+    this.labels = [];
+    this.weatherDates = [];
+
     this.chartConfig = [];
-    this.chartConfig.interval = "Daily";
+    this.chartConfig.interval = "daily";
     this.chartConfig.showChart = false;
     this.chartConfig.type = "temperature";
 
     this.chartConfig.period = [];
-    this.chartConfig.period.from = "21.08.2018";
-    this.chartConfig.period.to = "25.08.2018";
+    this.chartConfig.period.dates = [];
     this.getLocations();
 
   }
 
-  changeLocation(event){
-    console.log(this.chartConfig.selectedLocation);
+  changeLocation(location) {
+    this.getAllWeatherRecordsByID(location.id);
   };
 
-  ngOnInit() {
-    this.initChartData()
-    this.chart = this.generateLineChart();
-    this.chart = this.generateBarChart();
+  changeInterval(interval) {
+    this.chartConfig.interval = interval;
   }
 
-  getLocations(){
-   this.locationService
+  getAllWeatherRecordsByID(id) {
+    this.weatherRecordService.getWeatherRecordByID(id)
+      .subscribe((data: any[]) => {
+        this.weatherRecords = data;
+        console.log(this.weatherRecords);
+        this.initFormData();
+
+      }
+      )
+  }
+
+  initFormData() {
+    for (let weatherRecord of this.weatherRecords) {
+      let date = new Date(weatherRecord.date);
+      weatherRecord.date = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
+      if (!this.arrContains(weatherRecord.date, this.chartConfig.period.dates)) {
+        this.chartConfig.period.dates.push({ id: weatherRecord._id, value: weatherRecord.date });
+      }
+    }
+  }
+
+  arrContains(value, array) {
+    let arrContainsFlag = false;
+    for (let obj of array) {
+      if (value == obj.value)
+        return true;
+    }
+    return false;
+  }
+
+  ngOnInit() {
+    // this.initChartData()
+    // this.chart = this.generateLineChart();
+    // this.chart = this.generateBarChart();
+  }
+
+  getLocations() {
+    this.locationService
       .getLocations()
       .subscribe((data: Location[]) => {
         this.locations = data;
-        }
-    )
+      }
+      )
   };
 
-  initChartData(){
-    this.weatherDates = [{
-      x: 1,
-      y: 10
-    }, {
-      x: 2,
-      y: 20
-    }]
-    this.labels = [1,2,3,4,6]
+  initDailyChartData() {
+    // This is needed for x-axis
+    let index = 1;
+    for (let date of this.chartConfig.period.dates) {
+      this.labels.push(date.value);
+      this.weatherDates.push({ x: index, y: 0 })
+      index++;
+    }
+
+    // This is needed for y-axis
+    for (let weatherRecord of this.weatherRecords) {
+      for (let i = 0; i < this.chartConfig.period.dates.length; i++) {
+        if (weatherRecord.date == this.chartConfig.period.dates[i].value) {
+          if (this.weatherDates[i].y == 0) {
+            if (this.chartConfig.type == "temperature")
+              this.weatherDates[i].y = weatherRecord.temperature;
+
+            if (this.chartConfig.type == "wind")
+              this.weatherDates[i].y = weatherRecord.wind;
+
+            if (this.chartConfig.type == "pressure")
+              this.weatherDates[i].y = weatherRecord.pressure;
+
+            if (this.chartConfig.type == "precipitation")
+              this.weatherDates[i].y = weatherRecord.precipitation;
+          } else {
+            if (this.chartConfig.type == "temperature")
+              this.weatherDates[i].y = (this.weatherDates[i].y + weatherRecord.temperature) / 2
+
+            if (this.chartConfig.type == "wind")
+              this.weatherDates[i].y = (this.weatherDates[i].y + weatherRecord.wind) / 2
+
+            if (this.chartConfig.type == "pressure")
+              this.weatherDates[i].y = (this.weatherDates[i].y + weatherRecord.pressure) / 2
+
+            if (this.chartConfig.type == "precipitation")
+              this.weatherDates[i].y = (this.weatherDates[i].y + weatherRecord.precipitation) / 2
+          }
+        }
+      }
+    }
+
   }
 
-  applyChartConfigs(){
-    this.weatherDates.push({
-      x: 3,
-      y: 15
-    });
+  applyChartConfigs() {
+    this.labels = []
+    this.weatherDates = []
+    this.initDailyChartData();
+    this.chart = this.generateLineChart();
     this.chart.update();
   }
 
   // TODO: Use enum types
-  changeData(type: String){
+  changeData(type: String) {
     this.chartConfig.type = type;
-    if (this.chartConfig.type == 'precipitation')
-      this.chart = this.generateBarChart();
-    else 
-      this.chart = this.generateLineChart();
-    this.chart.update();  
+    this.applyChartConfigs();
+    this.chart.update();
   }
 
-  generateLineChart(){
+  generateLineChart() {
     return new Chart(this.chartRef.nativeElement, {
       type: 'line',
       data: {
@@ -106,7 +175,7 @@ export class HistoricalComponent implements OnInit {
     });
   }
 
-  generateBarChart(){
+  generateBarChart() {
     return new Chart(this.chartRef.nativeElement, {
       type: 'line',
       data: {

@@ -6,11 +6,23 @@
   </option>
 </select><br>
 
+<button [disabled]="!chartConfig.selectedLocation" class="myButton" color="primary" (click)="changeInterval('daily')">Daily</button>
+<button [disabled]="!chartConfig.selectedLocation" class="myButton" color="primary" (click)="changeInterval('threeHours')">3 Hours</button><br>
 
-<input type="text" class="form-control" required [(ngModel)]="chartConfig.interval"><br>
-<input type="text" class="form-control" required [(ngModel)]="chartConfig.period.from"><br>
-<input type="text" class="form-control" required [(ngModel)]="chartConfig.period.to"><br>
-<button class="myButton" color="primary" (click)="applyChartConfigs()">apply</button>
+<select class="form-control" name="sel" 
+    [(ngModel)]="chartConfig.period.from">
+  <option *ngFor="let date of chartConfig.period.dates" [ngValue]="date">
+    {{date.value}}
+  </option>
+</select>
+<select class="form-control" name="sel" 
+    [(ngModel)]="chartConfig.period.to">
+  <option *ngFor="let date of chartConfig.period.dates" [ngValue]="date">
+    {{date.value}}
+  </option>
+</select><br>
+
+<button [disabled]="!chartConfig.selectedLocation" class="myButton" color="primary" (click)="applyChartConfigs()">apply</button>
 
 <p>
 TODO: Do not forget the UI
