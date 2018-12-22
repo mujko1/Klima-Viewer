@@ -36,3 +36,7 @@ TODO: Do not forget the UI
 <div class="form-group">
     <canvas #lineChart>{{ chart }}</canvas>
  </div>
+
+
+ <button [disabled]="!chart" class="myButton" color="primary" (click)="exportCSV()">export csv</button>
+

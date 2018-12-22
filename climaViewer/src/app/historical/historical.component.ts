@@ -3,6 +3,7 @@ import { Chart } from 'chart.js';
 import { TouchSequence } from 'selenium-webdriver';
 import { LocationService } from '../location.service';
 import { WeatherRecordService } from '../weather-record.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-historical',
@@ -207,6 +208,21 @@ export class HistoricalComponent implements OnInit {
         }
       }
     });
+  }
+
+  exportCSV(){
+    console.log(this.weatherDates);
+    const exportData = [];
+
+    for (let weatherDate of this.weatherDates){
+      exportData.push({date: this.chartConfig.period.dates[weatherDate.x-1].value, value: weatherDate.y})
+    }
+
+    const workBook = XLSX.utils.book_new();
+    const workSheet = XLSX.utils.json_to_sheet(exportData);
+
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'data'); // add the worksheet to the book
+    XLSX.writeFile(workBook, 'climaviewer_export_'+ this.chartConfig.type + '_' + new Date().getTime().toString() + ".csv"); // initiate a file download in browser
   }
 
 }
