@@ -27,8 +27,7 @@ export class WeatherRecordService {
 
 
   getWeatherRecordByID(id: number){
-   return this.http.post(`${this.uri}/getRecordsFromID`, id)
-           .subscribe(res => {console.log(res)});
+   return this.http.get(`${this.uri}/${id}`);
   }
 
   getWeatherRecords() {

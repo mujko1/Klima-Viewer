@@ -19,7 +19,7 @@ weatherRecordRoutes.route('/add').post(function (req, res) {
 
 // Defined get data(index or listing) route
 weatherRecordRoutes.route('/').get(function (req, res) {
-    weatherRecord.find(function (err, weatherRecords){
+    WeatherRecord.find(function (err, weatherRecords){
     if(err){
       console.log(err);
     }
@@ -29,14 +29,17 @@ weatherRecordRoutes.route('/').get(function (req, res) {
   });
 });
 
-// Defined get data(index or listing) route
-weatherRecordRoutes.route('/getRecordsFromID').post(function (req, res) {
-  console.log(req.body);
-  weatherRecord.find({id: req.body},function (err, weatherRecords){
+// TODO: Not working: Nobody knows why mongodb is not working correctly?????
+weatherRecordRoutes.route('/:id').get(function (req, res) {
+  WeatherRecord.find(function (err, weatherRecords){
   if(err){
     console.log(err);
   }
   else {
+    let filtered = weatherRecords.filter(function(value, index, arr){
+      return value.id == req.params.id;
+    });
+    weatherRecords = filtered;
     res.json(weatherRecords);
   }
 });
