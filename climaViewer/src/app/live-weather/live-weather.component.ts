@@ -22,22 +22,22 @@ export class LiveWeatherComponent implements OnInit {
 
   addLocation() {
     this.weatherService.getCurrentWeatherData(this.newCity).subscribe(res => {
-      if(!this.isLocationInArr(res.id)){
-        this.locationService.addLocation(res);
-        this.weatherRecordService.addWeatherRecord(res);
-        alert(res.name + " saved in Database");
-      }else{
-        alert(res.name + " is already in Database");
-      }
+        if(!this.isLocationInArr(res)){
+          this.locationService.addLocation(res);
+          this.weatherRecordService.addWeatherRecord(res);
+          alert("Location saved in Database");
+        }else{
+          alert("Location is already in Database");
+        }
     }, err => {
       console.log(err);
     })
   }
 
 
-  isLocationInArr(locationId){
+  isLocationInArr(location){
     for (let location of this.locations){
-      if(location.id == locationId)
+      if(location.id == location.id)
         return true;
     }
     return false;
