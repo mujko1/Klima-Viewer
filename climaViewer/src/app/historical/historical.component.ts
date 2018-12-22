@@ -134,7 +134,13 @@ export class HistoricalComponent implements OnInit {
     this.labels = []
     this.weatherDates = []
     this.initDailyChartData();
-    this.chart = this.generateLineChart();
+    
+
+    if (this.chartConfig.type == "precipitation"){
+      this.chart = this.generateBarChart();
+    }else{
+      this.chart = this.generateLineChart();
+    }
     this.chart.update();
   }
 
@@ -176,7 +182,7 @@ export class HistoricalComponent implements OnInit {
 
   generateBarChart() {
     return new Chart(this.chartRef.nativeElement, {
-      type: 'line',
+      type: 'bar',
       data: {
         labels: this.labels, // your labels array
         datasets: [
