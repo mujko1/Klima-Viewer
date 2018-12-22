@@ -21,11 +21,15 @@ export class WeatherRecordService {
       response: JSON.stringify(data)
     };
 
-
     this.http.post(`${this.uri}/add`, weatherRecord)
         .subscribe(res => console.log('Save data to weatherRecord'));
   }
 
+
+  getWeatherRecordByID(id: number){
+   return this.http.post(`${this.uri}/getRecordsFromID`, id)
+           .subscribe(res => {console.log(res)});
+  }
 
   getWeatherRecords() {
     return this

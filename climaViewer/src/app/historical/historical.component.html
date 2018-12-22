@@ -1,0 +1,26 @@
+<select class="form-control" name="sel" 
+    [(ngModel)]="chartConfig.selectedLocation " 
+    (ngModelChange)="changeLocation($event)">
+  <option *ngFor="let location of locations" [ngValue]="location">
+    {{location.name}}
+  </option>
+</select><br>
+
+
+<input type="text" class="form-control" required [(ngModel)]="chartConfig.interval"><br>
+<input type="text" class="form-control" required [(ngModel)]="chartConfig.period.from"><br>
+<input type="text" class="form-control" required [(ngModel)]="chartConfig.period.to"><br>
+<button class="myButton" color="primary" (click)="applyChartConfigs()">apply</button>
+
+<p>
+TODO: Do not forget the UI
+</p>
+
+<button class="myButton" color="primary" (click)="changeData('temperature')">Temperature</button>
+<button class="myButton" color="primary" (click)="changeData('wind')">Wind</button>
+<button class="myButton" color="primary" (click)="changeData('pressure')">Pressure</button>
+<button class="myButton" color="primary" (click)="changeData('precipitation')">Precipitation</button>
+
+<div class="form-group">
+    <canvas #lineChart>{{ chart }}</canvas>
+ </div>

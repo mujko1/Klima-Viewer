@@ -29,4 +29,18 @@ weatherRecordRoutes.route('/').get(function (req, res) {
   });
 });
 
+// Defined get data(index or listing) route
+weatherRecordRoutes.route('/getRecordsFromID').post(function (req, res) {
+  console.log(req.body);
+  weatherRecord.find({id: req.body},function (err, weatherRecords){
+  if(err){
+    console.log(err);
+  }
+  else {
+    res.json(weatherRecords);
+  }
+});
+});
+
+
 module.exports = weatherRecordRoutes;
