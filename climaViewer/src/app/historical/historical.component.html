@@ -2,15 +2,24 @@
 <h4>Search below your city:</h4>
 <mat-divider></mat-divider>
 
+<div class="historicWrapper">
+  
+<mat-form-field class="myInput">
+  <select matNativeControl [(ngModel)]="chartConfig.selectedLocation " 
+      (ngModelChange)="changeLocation($event)" placeholder="Stadt wählen">
+    <option *ngFor="let location of locations" [ngValue]="location">
+      {{location.name}}
+    </option>
+  </select>
+</mat-form-field>
 
-<input type="text" class="form-control" required [(ngModel)]="chartConfig.interval"><br>
-<input type="text" class="form-control" required [(ngModel)]="chartConfig.period.from"><br>
-<input type="text" class="form-control" required [(ngModel)]="chartConfig.period.to"><br>
-<button class="myButton" color="primary" (click)="applyChartConfigs()">apply</button>
+<mat-form-field class="myInput" color="primary">
+  <input matInput type="text" class="form-control" required [(ngModel)]="chartConfig.interval">
+</mat-form-field>
 
-<p>
-TODO: Do not forget the UI
-</p>
+<mat-form-field class="myInput" color="primary">
+  <input matInput type="text" class="form-control" required [(ngModel)]="chartConfig.period.from">
+</mat-form-field>
 
 <mat-form-field class="myInput" color="primary">
 <input matInput type="text" class="form-control" required [(ngModel)]="chartConfig.period.to">
