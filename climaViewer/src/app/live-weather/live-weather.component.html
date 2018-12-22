@@ -22,14 +22,16 @@
   <mat-grid-tile>
       <mat-card>
           <mat-card-content>
-            <!-- <form>
+           <!--<form>
                 <mat-form-field class="myInput" color="primary">
-                    <input  matInput placeholder="add new City">
+                    <input  matInput type="text" class="form-control" required [(ngModel)]="newCity" placeholder="neue Stadt hinzufügen">
                 </mat-form-field>
-                <button class="myButton" mat-flat-button color="primary" type="submit" (click)="">Add</button> -->
-            <!-- </form> -->
-            <input type="text" class="form-control" required [(ngModel)]="newCity">
-            <button class="myButton" color="primary" (click)="addLocation()">Add</button>
+                <button class="myButton" mat-flat-button color="primary" type="submit" (click)="addLocation()">Hinzufügen</button>
+            </form>-->
+            <mat-form-field class="myInput" color="primary">
+                <input matInput type="text" class="form-control" required [(ngModel)]="newCity">
+            </mat-form-field>
+            <button mat-flat-button class="myButton" color="primary" (click)="addLocation()">Add</button>
         </mat-card-content>
       </mat-card>
   </mat-grid-tile>  
