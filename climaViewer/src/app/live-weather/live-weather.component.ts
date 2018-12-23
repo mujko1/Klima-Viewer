@@ -17,7 +17,7 @@ export class LiveWeatherComponent implements OnInit {
 
   constructor(private locationService: LocationService, private weatherRecordService: WeatherRecordService, private weatherService: WeatherService) {
 
-    this.newCity = "ex Jegensdorf";
+    this.newCity = "";
   }
 
   addLocation() {

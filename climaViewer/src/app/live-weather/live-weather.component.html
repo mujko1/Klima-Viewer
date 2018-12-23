@@ -1,5 +1,5 @@
 <h1>Live Weather</h1>
-<h4>Add below your city:</h4>
+<h4>Live Weather zeigt Wetterdaten ausgewählter Städte. Fügen Sie neue Städte hinzu!</h4>
 <mat-divider></mat-divider>
 <mat-grid-list cols="4" rowHeight="1:1">
   
@@ -9,6 +9,7 @@
       [rowspan]="1"
       [style.background]="transparent">
       <mat-card>
+        <button mat-mini-fab class="myButtonMini" color="warn">x</button>
         <mat-card-title>{{ location.name }}</mat-card-title>
         <mat-card-content><img [src]="location.iconPath"></mat-card-content>
         <mat-card-content *ngIf="location.response">{{location.response.main.temp}}</mat-card-content>
@@ -22,9 +23,9 @@
       <mat-card>
           <mat-card-content>
             <mat-form-field class="myInput" color="primary">
-                <input matInput type="text" class="form-control" required [(ngModel)]="newCity">
+                <input matInput type="text" class="form-control" required [(ngModel)]="newCity" placeholder="neue Stadt">
             </mat-form-field>
-            <button mat-flat-button class="myButton" color="primary" (click)="addLocation()">Add</button>
+            <button mat-flat-button class="myButton" color="primary" (click)="addLocation()">Stadt hinzufügen</button>
         </mat-card-content>
       </mat-card>
   </mat-grid-tile>  
