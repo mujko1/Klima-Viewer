@@ -9,13 +9,13 @@
       [rowspan]="1"
       [style.background]="transparent">
       <mat-card>
-        <button mat-mini-fab class="myButtonMini" color="warn">x</button>
+        <!-- <button mat-mini-fab class="myButtonMini" color="warn">x</button> -->
         <mat-card-title>{{ location.name }}</mat-card-title>
         <mat-card-content><img [src]="location.iconPath"></mat-card-content>
-        <mat-card-content *ngIf="location.response">{{location.response.main.temp}}</mat-card-content>
-        <mat-card-content *ngIf="location.response">Wind: {{location.response.wind.speed}}32</mat-card-content>
-        <mat-card-content *ngIf="location.response">Pressure: {{location.response.main.pressure}}</mat-card-content>
-        <mat-card-content *ngIf="location.response">Precitipation: xy</mat-card-content>
+        <mat-card-content *ngIf="location.response">{{location.response.main.temp}} Kelvin</mat-card-content>
+        <mat-card-content *ngIf="location.response">Wind: {{location.response.wind.speed}} m/s</mat-card-content>
+        <mat-card-content *ngIf="location.response">Pressure: {{location.response.main.pressure}} hPa</mat-card-content>
+        <mat-card-content *ngIf="location.response.precitipation">Precitipation: {{location.response.main.pressure}} mm</mat-card-content>
       </mat-card>
     </mat-grid-tile> 
 
