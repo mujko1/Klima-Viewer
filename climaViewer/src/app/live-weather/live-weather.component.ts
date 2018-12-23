@@ -43,6 +43,7 @@ export class LiveWeatherComponent implements OnInit {
           alert("Location is already in Database");
         }
     }, err => {
+      alert("Location does not exist or ist not in switzerland");
       console.log(err);
     })
   }
