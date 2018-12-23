@@ -1,5 +1,5 @@
-<h1>Historical</h1>
-<h4>Search below your city:</h4>
+<h1>Historische Daten</h1>
+<h4>Hier können Daten in einem Zeitraum abgerufen und in einem Chart angezeigt werden.</h4>
 <mat-divider></mat-divider>
 
 <div class="historicWrapper">
@@ -35,12 +35,12 @@
 </select><br>
 </mat-form-field>
 
-<button mat-flat-button class="myButton" color="primary" [disabled]="!chartConfig.selectedLocation" (click)="applyChartConfigs()">apply</button><br>
+<button mat-flat-button class="myButton" color="primary" [disabled]="!chartConfig.selectedLocation" (click)="applyChartConfigs()">übernehmen</button><br>
 
-<button mat-flat-button [disabled]="!chart" class="myButton" color="primary" (click)="changeData('temperature')">Temperature</button>
-<button mat-flat-button [disabled]="!chart" class="myButton" color="primary" (click)="changeData('wind')">Wind</button>
-<button mat-flat-button [disabled]="!chart" class="myButton" color="primary" (click)="changeData('pressure')">Pressure</button>
-<button mat-flat-button [disabled]="!chart" class="myButton" color="primary" (click)="changeData('precipitation')">Precipitation</button>
+<button mat-flat-button [disabled]="!chart" class="myButton" color="primary" (click)="changeData('temperature')">Temperatur</button>
+<button mat-flat-button [disabled]="!chart" class="myButton" color="primary" (click)="changeData('wind')">Windgeschwindigkeit</button>
+<button mat-flat-button [disabled]="!chart" class="myButton" color="primary" (click)="changeData('pressure')">Druck</button>
+<button mat-flat-button [disabled]="!chart" class="myButton" color="primary" (click)="changeData('precipitation')">Niederschlag</button>
 
 <div class="myChart">
     <canvas #lineChart>{{ chart }}</canvas>
