@@ -1,3 +1,7 @@
+/** 
+* @desc main logic js class of app
+* @author mujko1 kozinai
+*/
 import { Component } from '@angular/core';
 
 @Component({

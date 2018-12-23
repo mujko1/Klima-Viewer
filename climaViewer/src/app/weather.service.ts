@@ -1,3 +1,8 @@
+/** 
+* @desc Service of the location and db
+* @author mujko1 kozinai
+*/
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -8,6 +13,11 @@ export class WeatherService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+  * @desc Send request to openweathermap 
+  * @param String name - name of the location to request
+  * @return any - response from request
+  */
   getCurrentWeatherData(name) {
       return this
            .http

@@ -1,3 +1,9 @@
+/** 
+* @desc main logic js class of app
+* @author mujko1 kozinai
+*/
+
+// All imported modules, libraries, services, packages...
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 

@@ -1,3 +1,9 @@
+/** 
+  * @desc This class handle all the logic in the historical page
+  * @author mujko1 kozinai
+*/
+
+// Logic controller of historical page
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { TouchSequence } from 'selenium-webdriver';
@@ -19,6 +25,11 @@ export class HistoricalComponent implements OnInit {
   locations: any;
   weatherRecords: any;
 
+  /**
+  * @desc Init the class
+  * @param LocationService locationService - service for work with location from db
+  * @param weatherRecordService weatherRecordService - service for work with weatherRecord from db
+  */
   constructor(private locationService: LocationService, private weatherRecordService: WeatherRecordService) {
 
     this.labels = [];
@@ -35,14 +46,26 @@ export class HistoricalComponent implements OnInit {
 
   }
 
+  /**
+  * @desc If trigger than get all weatherRecords from this location
+  * @param Location location - location object
+  */
   changeLocation(location) {
     this.getAllWeatherRecordsByID(location.id);
   };
 
+  /**
+  * @desc Set manually the new value of interval
+  * @param string interval - value of interval 'daily'|'threeHours'
+  */
   changeInterval(interval) {
     this.chartConfig.interval = interval;
   }
 
+  /**
+  * @desc If trigger than get all weatherRecords from this location
+  * @param string id - id of the location
+  */
   getAllWeatherRecordsByID(id) {
     this.weatherRecordService.getWeatherRecordByID(id)
       .subscribe((data: any[]) => {
@@ -54,6 +77,9 @@ export class HistoricalComponent implements OnInit {
       )
   }
 
+  /**
+  * @desc Init the form data to use it for the next configurations
+  */
   initFormData() {
     for (let weatherRecord of this.weatherRecords) {
       let date = new Date(weatherRecord.date);
@@ -64,6 +90,12 @@ export class HistoricalComponent implements OnInit {
     }
   }
 
+  /**
+  * @desc check if input value is in input array
+  * @param any value - value which is to search
+  * @param any[] array - array which have to be searched
+  * @return bool - found or not found
+  */
   arrContains(value, array) {
     let arrContainsFlag = false;
     for (let obj of array) {
@@ -79,6 +111,9 @@ export class HistoricalComponent implements OnInit {
     // this.chart = this.generateBarChart();
   }
 
+  /**
+  * @desc get all Locations from db 
+  */
   getLocations() {
     this.locationService
       .getLocations()
@@ -88,6 +123,9 @@ export class HistoricalComponent implements OnInit {
       )
   };
 
+  /**
+  * @desc init chart data for daily chart
+  */
   initDailyChartData() {
     // This is needed for x-axis
     let index = 1;
@@ -131,10 +169,13 @@ export class HistoricalComponent implements OnInit {
     }
   }
 
+  /**
+  * @desc init chart data for threeHours chart
+  */
   initThreeHoursChartData() {
     let i = 0;
     for (let weatherRecord of this.weatherRecords) {
-      
+
       let date = new Date(weatherRecord.date);
       let dateFormat = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
 
@@ -144,7 +185,7 @@ export class HistoricalComponent implements OnInit {
         this.weatherDates.push({ x: i, y: weatherRecord.temperature })
 
       if (this.chartConfig.type == "wind")
-        this.weatherDates.push({ x: i, y: weatherRecord.wind  })
+        this.weatherDates.push({ x: i, y: weatherRecord.wind })
 
       if (this.chartConfig.type == "pressure")
         this.weatherDates.push({ x: i, y: weatherRecord.pressure })
@@ -157,6 +198,9 @@ export class HistoricalComponent implements OnInit {
   }
 
 
+  /**
+  * @desc apply configs and generate chart
+  */
   applyChartConfigs() {
     this.labels = []
     this.weatherDates = [];
@@ -175,13 +219,21 @@ export class HistoricalComponent implements OnInit {
     this.chart.update();
   }
 
-  // TODO: Use enum types
+  /**
+  * @desc change manually data for specific type
+  * @param string type - value of type which is to change 
+  */
   changeData(type: String) {
+    // TODO: Use enum types
     this.chartConfig.type = type;
     this.applyChartConfigs();
     this.chart.update();
   }
 
+   /**
+  * @desc generate chart with specific type
+  * @param string type - type of chart data
+  */
   generateChart(type) {
     return new Chart(this.chartRef.nativeElement, {
       type: type,
@@ -210,7 +262,11 @@ export class HistoricalComponent implements OnInit {
       }
     });
   }
-
+ 
+  /**
+  * @desc change manually data for specific type
+  * @param string type - value of type which is to change 
+  */
   exportCSV() {
     console.log(this.weatherDates);
     const exportData = [];
