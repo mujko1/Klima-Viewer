@@ -1,9 +1,14 @@
+/** 
+  * @desc This class handle all the logic in the liveweather page
+  * @author mujko1 kozinai
+*/
+
+// Logic controller of liveweather page
 import { Component, OnInit } from '@angular/core';
 import Location from '../Location';
 import { LocationService } from '../location.service';
 import { WeatherService } from '../weather.service';
 import { WeatherRecordService } from '../weather-record.service';
-
 
 @Component({
   selector: 'app-live-weather',
@@ -15,11 +20,19 @@ export class LiveWeatherComponent implements OnInit {
   locations: any[];
   newCity: any;
 
+  /**
+  * @desc Init the class
+  * @param LocationService locationService - service for work with location from db
+  * @param weatherRecordService weatherRecordService - service for work with weatherRecord from db
+  * @param WeatherService weatherService - service for api request to openweathermap
+  */
   constructor(private locationService: LocationService, private weatherRecordService: WeatherRecordService, private weatherService: WeatherService) {
-
     this.newCity = "";
   }
 
+  /**
+  * @desc Add location to db and view. And check if there city is already in db
+  */
   addLocation() {
     this.weatherService.getCurrentWeatherData(this.newCity).subscribe(res => {
         if(!this.isLocationInArr(res)){
@@ -35,6 +48,11 @@ export class LiveWeatherComponent implements OnInit {
   }
 
 
+  /**
+  * @desc Check if location is already in Location[]
+  * @param string location - name of requested location
+  * @return bool - found and not found
+  */
   isLocationInArr(location){
     for (let location of this.locations){
       if(location.id == location.id)
@@ -44,6 +62,9 @@ export class LiveWeatherComponent implements OnInit {
   }
 
 
+  /**
+  * @desc Get all location after init ng components. And set them.
+  */
   ngOnInit() {
     this.locationService
       .getLocations()
@@ -59,6 +80,11 @@ export class LiveWeatherComponent implements OnInit {
       });
   }
 
+  /**
+  * @desc Get all location after init ng components. And set them.
+  * @param any res - the response from request on openweathermap
+  * @return string - icon path for suitable icon for weather situation
+  */
   getImagePath(res) {
     let weather = res.weather[0].main;
 

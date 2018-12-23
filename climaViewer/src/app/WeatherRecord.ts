@@ -1,3 +1,7 @@
+/** 
+* @desc object class of location
+* @author mujko1 kozinai
+*/
 export default class WeatherRecord {
     id: String;
     temperature: String;
