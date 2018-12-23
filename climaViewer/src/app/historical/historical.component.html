@@ -11,26 +11,36 @@
       {{location.name}}
     </option>
   </select>
+</mat-form-field><br>
+
+
+<button [disabled]="!chartConfig.selectedLocation" mat-flat-button class="myButton" color="primary" (click)="changeInterval('daily')">Daily</button>
+<button [disabled]="!chartConfig.selectedLocation" mat-flat-button class="myButton" color="primary" (click)="changeInterval('threeHours')">3 Hours</button><br>
+
+<mat-form-field class="myInput">
+<select matNativeControl name="sel" 
+    [(ngModel)]="chartConfig.period.from">
+  <option *ngFor="let date of chartConfig.period.dates" [ngValue]="date">
+    {{date.value}}
+  </option>
+</select>
 </mat-form-field>
 
-<mat-form-field class="myInput" color="primary">
-  <input matInput type="text" class="form-control" required [(ngModel)]="chartConfig.interval">
+<mat-form-field class="myInput">
+<select matNativeControl name="sel" 
+    [(ngModel)]="chartConfig.period.to">
+  <option *ngFor="let date of chartConfig.period.dates" [ngValue]="date">
+    {{date.value}}
+  </option>
+</select><br>
 </mat-form-field>
 
-<mat-form-field class="myInput" color="primary">
-  <input matInput type="text" class="form-control" required [(ngModel)]="chartConfig.period.from">
-</mat-form-field>
+<button mat-flat-button class="myButton" color="primary" [disabled]="!chartConfig.selectedLocation" (click)="applyChartConfigs()">apply</button><br>
 
-<mat-form-field class="myInput" color="primary">
-<input matInput type="text" class="form-control" required [(ngModel)]="chartConfig.period.to">
-</mat-form-field>
-
-<button mat-flat-button class="myButton" color="primary" (click)="applyChartConfigs()">apply</button><br>
-
-<button mat-flat-button class="myButton" color="primary" (click)="changeData('temperature')">Temperature</button>
-<button mat-flat-button class="myButton" color="primary" (click)="changeData('wind')">Wind</button>
-<button mat-flat-button class="myButton" color="primary" (click)="changeData('pressure')">Pressure</button>
-<button mat-flat-button class="myButton" color="primary" (click)="changeData('precipitation')">Precipitation</button>
+<button mat-flat-button [disabled]="!chart" class="myButton" color="primary" (click)="changeData('temperature')">Temperature</button>
+<button mat-flat-button [disabled]="!chart" class="myButton" color="primary" (click)="changeData('wind')">Wind</button>
+<button mat-flat-button [disabled]="!chart" class="myButton" color="primary" (click)="changeData('pressure')">Pressure</button>
+<button mat-flat-button [disabled]="!chart" class="myButton" color="primary" (click)="changeData('precipitation')">Precipitation</button>
 
 <div class="myChart">
     <canvas #lineChart>{{ chart }}</canvas>
