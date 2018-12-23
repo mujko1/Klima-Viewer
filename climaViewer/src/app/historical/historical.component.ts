@@ -57,9 +57,9 @@ export class HistoricalComponent implements OnInit {
   initFormData() {
     for (let weatherRecord of this.weatherRecords) {
       let date = new Date(weatherRecord.date);
-      weatherRecord.date = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
-      if (!this.arrContains(weatherRecord.date, this.chartConfig.period.dates)) {
-        this.chartConfig.period.dates.push({ id: weatherRecord._id, value: weatherRecord.date });
+      weatherRecord.dayDate = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
+      if (!this.arrContains(weatherRecord.dayDate, this.chartConfig.period.dates)) {
+        this.chartConfig.period.dates.push({ id: weatherRecord._id, value: weatherRecord.dayDate });
       }
     }
   }
@@ -100,7 +100,7 @@ export class HistoricalComponent implements OnInit {
     // This is needed for y-axis
     for (let weatherRecord of this.weatherRecords) {
       for (let i = 0; i < this.chartConfig.period.dates.length; i++) {
-        if (weatherRecord.date == this.chartConfig.period.dates[i].value) {
+        if (weatherRecord.dayDate == this.chartConfig.period.dates[i].value) {
           if (this.weatherDates[i].y == 0) {
             if (this.chartConfig.type == "temperature")
               this.weatherDates[i].y = weatherRecord.temperature;
@@ -131,16 +131,46 @@ export class HistoricalComponent implements OnInit {
     }
   }
 
+  initThreeHoursChartData() {
+    let i = 0;
+    for (let weatherRecord of this.weatherRecords) {
+      
+      let date = new Date(weatherRecord.date);
+      let dateFormat = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+
+      this.labels.push(dateFormat);
+
+      if (this.chartConfig.type == "temperature")
+        this.weatherDates.push({ x: i, y: weatherRecord.temperature })
+
+      if (this.chartConfig.type == "wind")
+        this.weatherDates.push({ x: i, y: weatherRecord.wind  })
+
+      if (this.chartConfig.type == "pressure")
+        this.weatherDates.push({ x: i, y: weatherRecord.pressure })
+
+      if (this.chartConfig.type == "precipitation")
+        this.weatherDates.push({ x: i, y: weatherRecord.precipitation })
+      i++;
+    }
+
+  }
+
+
   applyChartConfigs() {
     this.labels = []
-    this.weatherDates = []
-    this.initDailyChartData();
-    
+    this.weatherDates = [];
 
-    if (this.chartConfig.type == "precipitation"){
-      this.chart = this.generateBarChart();
-    }else{
-      this.chart = this.generateLineChart();
+    if (this.chartConfig.interval == "daily") {
+      this.initDailyChartData();
+    } else if (this.chartConfig.interval == "threeHours") {
+      this.initThreeHoursChartData();
+    }
+
+    if (this.chartConfig.type == "precipitation") {
+      this.chart = this.generateChart('bar');
+    } else {
+      this.chart = this.generateChart('line');
     }
     this.chart.update();
   }
@@ -152,9 +182,9 @@ export class HistoricalComponent implements OnInit {
     this.chart.update();
   }
 
-  generateLineChart() {
+  generateChart(type) {
     return new Chart(this.chartRef.nativeElement, {
-      type: 'line',
+      type: type,
       data: {
         labels: this.labels, // your labels array
         datasets: [
@@ -181,48 +211,19 @@ export class HistoricalComponent implements OnInit {
     });
   }
 
-  generateBarChart() {
-    return new Chart(this.chartRef.nativeElement, {
-      type: 'bar',
-      data: {
-        labels: this.labels, // your labels array
-        datasets: [
-          {
-            data: this.weatherDates, // your data array
-            borderColor: '#00AEFF',
-            fill: false
-          }
-        ]
-      },
-      options: {
-        legend: {
-          display: false
-        },
-        scales: {
-          xAxes: [{
-            display: true
-          }],
-          yAxes: [{
-            display: true
-          }],
-        }
-      }
-    });
-  }
-
-  exportCSV(){
+  exportCSV() {
     console.log(this.weatherDates);
     const exportData = [];
 
-    for (let weatherDate of this.weatherDates){
-      exportData.push({date: this.chartConfig.period.dates[weatherDate.x-1].value, value: weatherDate.y})
+    for (let weatherDate of this.weatherDates) {
+      exportData.push({ date: this.chartConfig.period.dates[weatherDate.x - 1].value, value: weatherDate.y })
     }
 
     const workBook = XLSX.utils.book_new();
     const workSheet = XLSX.utils.json_to_sheet(exportData);
 
     XLSX.utils.book_append_sheet(workBook, workSheet, 'data'); // add the worksheet to the book
-    XLSX.writeFile(workBook, 'climaviewer_export_'+ this.chartConfig.type + '_' + new Date().getTime().toString() + ".csv"); // initiate a file download in browser
+    XLSX.writeFile(workBook, 'climaviewer_export_' + this.chartConfig.type + '_' + new Date().getTime().toString() + ".csv"); // initiate a file download in browser
   }
 
 }
