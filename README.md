@@ -54,7 +54,7 @@ To get help or information about the ClimaViewer project please contact us.
 ## Contributors
 | <a href="https://github.com/kozinai" target="_blank">**Kozinai**</a> | <a href="https://github.com/mujko1" target="_blank">**Mujko1**</a> |
 
-|(https://avatars1.githubusercontent.com/u/24269284?s=460&v=4&s=200)](http://fvcproductions.com)    |(https://avatars2.githubusercontent.com/u/27641983?s=400&u=a19ea233932a0877985ab3dcb746d152d34d3583&v=4&s=200)](http://fvcproductions.com) 
+|(https://avatars1.githubusercontent.com/u/24269284?s=460&v=4&s=200)]   |(https://avatars2.githubusercontent.com/u/27641983?s=400&u=a19ea233932a0877985ab3dcb746d152d34d3583&v=4&s=200)] 
 | 
 
 This project was development by these two contributors.
