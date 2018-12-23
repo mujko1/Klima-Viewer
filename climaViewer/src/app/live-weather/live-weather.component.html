@@ -9,6 +9,7 @@
       [rowspan]="1"
       [style.background]="transparent">
       <mat-card>
+        <button mat-mini-fab class="myButtonMini" color="warn">x</button>
         <mat-card-title>{{ location.name }}</mat-card-title>
         <mat-card-content><img [src]="location.iconPath"></mat-card-content>
         <mat-card-content *ngIf="location.response">{{location.response.main.temp}}</mat-card-content>
