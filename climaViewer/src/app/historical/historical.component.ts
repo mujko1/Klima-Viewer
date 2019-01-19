@@ -70,9 +70,7 @@ export class HistoricalComponent implements OnInit {
     this.weatherRecordService.getWeatherRecordByID(id)
       .subscribe((data: any[]) => {
         this.weatherRecords = data;
-        console.log(this.weatherRecords);
         this.initFormData();
-
       }
       )
   }
@@ -173,7 +171,7 @@ export class HistoricalComponent implements OnInit {
   * @desc init chart data for threeHours chart
   */
   initThreeHoursChartData() {
-    let i = 0;
+    let i = 1;
     for (let weatherRecord of this.weatherRecords) {
 
       let date = new Date(weatherRecord.date);
@@ -265,14 +263,14 @@ export class HistoricalComponent implements OnInit {
  
   /**
   * @desc change manually data for specific type
-  * @param string type - value of type which is to change 
   */
   exportCSV() {
     console.log(this.weatherDates);
     const exportData = [];
-
+    this.labels;
     for (let weatherDate of this.weatherDates) {
-      exportData.push({ date: this.chartConfig.period.dates[weatherDate.x - 1].value, value: weatherDate.y })
+      //exportData.push({ date: this.chartConfig.period.dates[weatherDate.x - 1].value, value: weatherDate.y })
+      exportData.push({ date: this.labels[weatherDate.x-1], value: weatherDate.y })
     }
 
     const workBook = XLSX.utils.book_new();

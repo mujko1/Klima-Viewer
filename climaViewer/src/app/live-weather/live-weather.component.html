@@ -15,7 +15,7 @@
         <mat-card-content *ngIf="location.response">{{location.response.main.temp}} Kelvin</mat-card-content>
         <mat-card-content *ngIf="location.response">Wind: {{location.response.wind.speed}} m/s</mat-card-content>
         <mat-card-content *ngIf="location.response">Pressure: {{location.response.main.pressure}} hPa</mat-card-content>
-        <mat-card-content *ngIf="location.response.precitipation">Precitipation: {{location.response.main.pressure}} mm</mat-card-content>
+        <!-- <mat-card-content *ngIf="location.response.precitipation !== undefined">Precitipation: {{location.response.pressure}} mm</mat-card-content> -->
       </mat-card>
     </mat-grid-tile> 
 
