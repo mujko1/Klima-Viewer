@@ -14,8 +14,8 @@
 </mat-form-field><br>
 
 
-<button [disabled]="!chartConfig.selectedLocation" mat-flat-button class="myButton" color="primary" (click)="changeInterval('daily')">Daily</button>
-<button [disabled]="!chartConfig.selectedLocation" mat-flat-button class="myButton" color="primary" (click)="changeInterval('threeHours')">3 Hours</button><br>
+<button [disabled]="!chartConfig.selectedLocation" mat-flat-button class="myButton" color="{{btnColorDaily}}" (click)="changeInterval('daily')">Daily</button>
+<button [disabled]="!chartConfig.selectedLocation" mat-flat-button class="myButton" color="{{btnColorThreeHours}}" (click)="changeInterval('threeHours')">3 Hours</button><br>
 
 <mat-form-field class="myInput">
 <select matNativeControl name="sel" 
@@ -37,10 +37,10 @@
 
 <button mat-flat-button class="myButton" color="primary" [disabled]="!chartConfig.selectedLocation" (click)="applyChartConfigs()">übernehmen</button><br>
 
-<button mat-flat-button [disabled]="!chart" class="myButton" color="primary" (click)="changeData('temperature')">Temperatur</button>
-<button mat-flat-button [disabled]="!chart" class="myButton" color="primary" (click)="changeData('wind')">Windgeschwindigkeit</button>
-<button mat-flat-button [disabled]="!chart" class="myButton" color="primary" (click)="changeData('pressure')">Druck</button>
-<button mat-flat-button [disabled]="!chart" class="myButton" color="primary" (click)="changeData('precipitation')">Niederschlag</button>
+<button mat-flat-button [disabled]="!chart" class="myButton" color="{{btnColorTemperature}}" (click)="changeData('temperature')">Temperatur</button>
+<button mat-flat-button [disabled]="!chart" class="myButton" color="{{btnColorWind}}" (click)="changeData('wind')">Windgeschwindigkeit</button>
+<button mat-flat-button [disabled]="!chart" class="myButton" color="{{btnColorPressure}}" (click)="changeData('pressure')">Druck</button>
+<button mat-flat-button [disabled]="!chart" class="myButton" color="{{btnColorPrecipitation}}" (click)="changeData('precipitation')">Niederschlag</button>
 
 <div class="myChart">
     <canvas #lineChart>{{ chart }}</canvas>
