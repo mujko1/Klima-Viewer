@@ -37,8 +37,11 @@ export class LiveWeatherComponent implements OnInit {
     this.weatherService.getCurrentWeatherData(this.newCity).subscribe(res => {
         if(!this.isLocationInArr(res)){
           this.locationService.addLocation(res);
-          this.weatherRecordService.addWeatherRecord(res);
-          alert("Location saved in Database");
+          this.weatherRecordService.addWeatherRecord(res).then(() => {
+            this.getAllLocations();
+            this.newCity = "";
+            alert("Location saved in Database");
+          });;
         }else{
           alert("Location is already in Database");
         }
@@ -55,30 +58,36 @@ export class LiveWeatherComponent implements OnInit {
   * @return bool - found and not found
   */
   isLocationInArr(location){
-    for (let location of this.locations){
-      if(location.id == location.id)
+    for (let listLocation of this.locations){
+      if(location.id == listLocation.id)
         return true;
     }
     return false;
   }
 
-
   /**
   * @desc Get all location after init ng components. And set them.
   */
   ngOnInit() {
+    this.getAllLocations();
+  }
+
+  /**
+  * @desc Get all location after init ng components. And set them.
+  */
+  getAllLocations(){
     this.locationService
-      .getLocations()
-      .subscribe((data: Location[]) => {
-        this.locations = data;
-        for (let location of this.locations) {
-          this.weatherService.getCurrentWeatherData(location.name).subscribe(res => {
-            location.response = res;
-            location.iconPath = this.getImagePath(res);
-            console.log(location)
-          })
-        }
-      });
+    .getLocations()
+    .subscribe((data: Location[]) => {
+      this.locations = data;
+      for (let location of this.locations) {
+        this.weatherService.getCurrentWeatherData(location.name).subscribe(res => {
+          location.response = res;
+          location.iconPath = this.getImagePath(res);
+        })
+      }
+      console.log(this.locations.length);
+    });
   }
 
   /**

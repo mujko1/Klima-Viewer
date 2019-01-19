@@ -4,6 +4,7 @@
 */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { error } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class WeatherRecordService {
  * @param response data - response from openweathermap
  */
   addWeatherRecord(data) {
+    return new Promise((resolve, reject) => {
     var weatherRecord = {
       id: data.id,
       temperature: data.main.temp,
@@ -31,7 +33,13 @@ export class WeatherRecordService {
     };
 
     this.http.post(`${this.uri}/add`, weatherRecord)
-      .subscribe(res => console.log('Save data to weatherRecord'));
+      .subscribe(res => {
+        resolve();
+        console.log('Save data to weatherRecord');
+      }, error => {
+        reject();
+      });
+    });
   }
 
   /**
