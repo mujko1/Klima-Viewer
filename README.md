@@ -1,6 +1,6 @@
 # ClimaViewer
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.3. The aim of this project is to create a web app to show in changes in our swiss clima.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.3. The aim of this project is to create a web app to show changes in our swiss clima.
 
 ## Installation
 Before you can run the development server you have to install some neccessarly libraries:
@@ -8,7 +8,7 @@ Before you can run the development server you have to install some neccessarly l
 - nodemon
 - mongoDB
 
-Go to the root project folder and run following command to install all packages:
+Go to the root project, api and cron-jobs-node folder and run following command to install all packages:
 ```shell
 $ npm install
 ```
@@ -17,9 +17,11 @@ $ npm install
 
 Run `ng serve` in root project folder for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-Run `ng serve` for a mongoDB server. Please consider that in the first time there are no data in database.
+Run `mongod` for a mongoDB server. Please consider that in the first time there are NO DATA in database. The prod website show tracked data.
 
 Run `nodemon server.js` in api folder for the backend server. The connection with the database will be automatically established.
+
+Run `node index.js` in cron-jobs-node folder for the cronjob. The connection with the database will be automatically established.
 
 ## Code scaffolding
 
@@ -29,9 +31,6 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Running end-to-end tests
 
@@ -57,7 +56,6 @@ To get help or information about the ClimaViewer project please contact us.
 This project was development by these two contributors.
 
 ---
-
 
 ## Prod
 You can access the demo on following link in the bfh network:
