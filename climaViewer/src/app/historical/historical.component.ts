@@ -33,6 +33,13 @@ export class HistoricalComponent implements OnInit {
   btnColorPressure: String;
   btnColorPrecipitation: String;
 
+  chartLabelDescription: any = {
+    "temperature": "Temperatur in Kelvin",
+    "wind": "Windgeschwindigkeit in m/s",
+    "pressure": "Luftdruck in hPa",
+    "precipitation": "Niederschlag in mm"
+  }
+
   /**
    * @desc Init the class
    * @param LocationService locationService - service for work with location from db
@@ -364,7 +371,7 @@ export class HistoricalComponent implements OnInit {
               display: true,
               scaleLabel: {
                 display: true,
-                labelString: 'Zeit'
+                labelString: this.chartLabelDescription[this.chartConfig.type]
               }
             }
           ]
