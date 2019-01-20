@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 })
 // service of location
 export class LocationService {
-  uri = 'http://localhost:4000/location';
+  uri = 'http://147.87.116.18:4000/location';
 
   constructor(private http: HttpClient) { }
 

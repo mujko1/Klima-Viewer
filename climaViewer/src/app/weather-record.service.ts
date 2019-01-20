@@ -12,7 +12,7 @@ import { error } from '@angular/compiler/src/util';
 // service of location
 export class WeatherRecordService {
 
-  uri = 'http://localhost:4000/weatherRecord';
+  uri = 'http://147.87.116.18:4000/weatherRecord';
 
   constructor(private http: HttpClient) { }
 
