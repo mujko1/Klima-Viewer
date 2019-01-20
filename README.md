@@ -5,7 +5,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Installation
 Before you can run the development server you have to install some neccessarly libraries:
 - node.js
-- nodemon (We use it to have to possibility of a hot deploy. But you can also use node)
+- nodemon (We use it to have the possibility of a hot deploy. But you can also use node)
 - mongoDB
 
 Go to the root project, api and cron-jobs-node folder and run following command to install all packages:
