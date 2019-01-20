@@ -1,3 +1,8 @@
+/** 
+  * @desc This is the class is for the routing of the app.
+  * @author mujko1 kozinai
+*/
+
 const express = require('express');
 const app = express();
 const weatherRecordRoutes = express.Router();
@@ -29,7 +34,7 @@ weatherRecordRoutes.route('/').get(function (req, res) {
   });
 });
 
-// TODO: Not working: Nobody knows why mongodb is not working correctly?????
+// Find records by location id
 weatherRecordRoutes.route('/:id').get(function (req, res) {
   WeatherRecord.find(function (err, weatherRecords){
   if(err){

@@ -1,3 +1,9 @@
+/**
+ * @desc This file iterate every three hours throught the location table, send a request for every location and
+ * save them datebase the response.
+ * @author mujko1 kozinai
+ */
+
 // index.js
 const cron = require("node-cron");
 const express = require("express");
@@ -31,7 +37,10 @@ function getLocations(){
     db.close();
   });
 };
-
+ /**
+  * @desc Send a request with locatio name to openweathermap
+  * @param string name - name of the location
+  */
 function sendRequest(name) {
   request(`https://api.openweathermap.org/data/2.5/weather?q=${name},ch&APPID=c5ff046efd910a43225f16e306180c09`, function (error, response, body) {
   if (!error && response.statusCode == 200) {
@@ -42,9 +51,12 @@ function sendRequest(name) {
 });
 }
 
-//init();
 getLocations();
 
+/**
+* @desc Parse location
+* @param response data - response from openweathermap
+*/
 function saveCity(data){
   data = JSON.parse(data.body);
 
@@ -58,6 +70,10 @@ function saveCity(data){
   saveLocation(location);
 }
 
+/**
+* @desc Parse data
+* @param response data - response from openweathermap
+*/
 function saveData(data) {
   data = JSON.parse(data.body);
   var weatherRecord = {
@@ -72,6 +88,10 @@ function saveData(data) {
   saveWeatherRecord(weatherRecord);
 }
 
+/**
+* @desc Save weatherRecord to database
+* @param WeatherRecord weatherRecord - Record to save
+*/
 function saveWeatherRecord(weatherRecord) {
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
@@ -83,6 +103,10 @@ function saveWeatherRecord(weatherRecord) {
   });
 }
 
+/**
+* @desc Save location to database
+* @param Location location - Record to save
+*/
 function saveLocation(location) {
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
@@ -95,7 +119,7 @@ function saveLocation(location) {
   });
 }
 
-
+// Init usage
 function init(){
   let cities = [ 
   'Solothurn',

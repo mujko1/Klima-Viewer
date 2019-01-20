@@ -1,3 +1,8 @@
+/** 
+  * @desc This is the class is for the routing of the app.
+  * @author mujko1 kozinai
+*/
+
 const express = require('express');
 const app = express();
 const locationRoutes = express.Router();

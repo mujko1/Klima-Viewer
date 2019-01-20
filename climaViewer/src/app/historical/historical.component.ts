@@ -90,6 +90,10 @@ export class HistoricalComponent implements OnInit {
     this.changeButtonColorIntervall(interval);
   }
 
+  /**
+   * @desc Set manually colors of selected interval buttons
+   * @param string interval - value of interval 'daily'|'threeHours'
+   */
   changeButtonColorIntervall(interval) {
     if (interval == "daily") {
       this.btnColorDaily = "primary";
@@ -100,6 +104,10 @@ export class HistoricalComponent implements OnInit {
     }
   }
 
+  /**
+   * @desc Set manually colors of selected chart type
+   * @param string type - value of interval 'temperature'|'wind'|'Pressure'|'Precipition'
+   */
   changeButtonColorCharts(type) {
     switch (type) {
       case "temperature":
@@ -177,10 +185,16 @@ export class HistoricalComponent implements OnInit {
     return false;
   }
 
+  /**
+   * @desc Add Detector after init view to see changes in elements
+   */
   ngAfterViewInit() {
     this.cdr.detectChanges();
   }
 
+   /**
+   * @desc Needed because it starts the init
+   */
   ngOnInit() {}
 
   /**
@@ -283,11 +297,21 @@ export class HistoricalComponent implements OnInit {
     }
   }
 
+   /**
+   * @desc transform german date to american standart dateformat
+   * @param any date - date to convert
+   * @return date - new date from german date format
+   */
   parseDate(date) {
     var parts = date.match(/(\d+)/g);
     return new Date(parts[2], parts[1] - 1, parts[0]);
   }
 
+  /**
+   * @desc check if date are between selected from and to date
+   * @param any date - date to check if between
+   * @return bool - beetween or not between 'true'|'false'
+   */
   containsDate(date) {
     let OneDayMS = 24 * 60 * 60 * 1000;
     let dateRecord = new Date(date).getTime();
@@ -381,7 +405,7 @@ export class HistoricalComponent implements OnInit {
   }
 
   /**
-   * @desc change manually data for specific type
+   * @desc Export seen data from chart to csv format
    */
   exportCSV() {
     console.log(this.weatherDates);

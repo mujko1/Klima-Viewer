@@ -1,3 +1,4 @@
+// Helper methods for test cases
 import { browser, by, element } from 'protractor';
 
 export class AppPage {
