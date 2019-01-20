@@ -106,13 +106,13 @@ export class HistoricalComponent implements OnInit {
         this.btnColorWind = "primary";
         this.btnColorPressure = "";
         this.btnColorPrecipitation = "";
-      break;
+        break;
       case "pressure":
         this.btnColorTemperature = "";
         this.btnColorWind = "";
         this.btnColorPressure = "primary";
         this.btnColorPrecipitation = "";
-      break;
+        break;
       case "precipitation":
         this.btnColorTemperature = "";
         this.btnColorWind = "";
@@ -174,11 +174,7 @@ export class HistoricalComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  ngOnInit() {
-    // this.initChartData()
-    // this.chart = this.generateLineChart();
-    // this.chart = this.generateBarChart();
-  }
+  ngOnInit() {}
 
   /**
    * @desc get all Locations from db
@@ -196,43 +192,47 @@ export class HistoricalComponent implements OnInit {
     // This is needed for x-axis
     let index = 1;
     for (let date of this.chartConfig.period.dates) {
-      this.labels.push(date.value);
-      this.weatherDates.push({ x: index, y: 0 });
-      index++;
+      if (this.containsDate(this.parseDate(date.value))) {
+        this.labels.push(date.value);
+        this.weatherDates.push({ x: index, y: 0 });
+        index++;
+      }
     }
 
     // This is needed for y-axis
     for (let weatherRecord of this.weatherRecords) {
-      for (let i = 0; i < this.chartConfig.period.dates.length; i++) {
-        if (weatherRecord.dayDate == this.chartConfig.period.dates[i].value) {
-          if (this.weatherDates[i].y == 0) {
-            if (this.chartConfig.type == "temperature")
-              this.weatherDates[i].y = weatherRecord.temperature;
+      if (this.containsDate(weatherRecord.date)) {
+        for (let i = 0; i < this.chartConfig.period.dates.length; i++) {
+          if (weatherRecord.dayDate == this.chartConfig.period.dates[i].value) {
+            if (this.weatherDates[i].y == 0) {
+              if (this.chartConfig.type == "temperature")
+                this.weatherDates[i].y = weatherRecord.temperature;
 
-            if (this.chartConfig.type == "wind")
-              this.weatherDates[i].y = weatherRecord.wind;
+              if (this.chartConfig.type == "wind")
+                this.weatherDates[i].y = weatherRecord.wind;
 
-            if (this.chartConfig.type == "pressure")
-              this.weatherDates[i].y = weatherRecord.pressure;
+              if (this.chartConfig.type == "pressure")
+                this.weatherDates[i].y = weatherRecord.pressure;
 
-            if (this.chartConfig.type == "precipitation")
-              this.weatherDates[i].y = weatherRecord.precipitation;
-          } else {
-            if (this.chartConfig.type == "temperature")
-              this.weatherDates[i].y =
-                (this.weatherDates[i].y + weatherRecord.temperature) / 2;
+              if (this.chartConfig.type == "precipitation")
+                this.weatherDates[i].y = weatherRecord.precipitation;
+            } else {
+              if (this.chartConfig.type == "temperature")
+                this.weatherDates[i].y =
+                  (this.weatherDates[i].y + weatherRecord.temperature) / 2;
 
-            if (this.chartConfig.type == "wind")
-              this.weatherDates[i].y =
-                (this.weatherDates[i].y + weatherRecord.wind) / 2;
+              if (this.chartConfig.type == "wind")
+                this.weatherDates[i].y =
+                  (this.weatherDates[i].y + weatherRecord.wind) / 2;
 
-            if (this.chartConfig.type == "pressure")
-              this.weatherDates[i].y =
-                (this.weatherDates[i].y + weatherRecord.pressure) / 2;
+              if (this.chartConfig.type == "pressure")
+                this.weatherDates[i].y =
+                  (this.weatherDates[i].y + weatherRecord.pressure) / 2;
 
-            if (this.chartConfig.type == "precipitation")
-              this.weatherDates[i].y =
-                (this.weatherDates[i].y + weatherRecord.precipitation) / 2;
+              if (this.chartConfig.type == "precipitation")
+                this.weatherDates[i].y =
+                  (this.weatherDates[i].y + weatherRecord.precipitation) / 2;
+            }
           }
         }
       }
@@ -245,33 +245,54 @@ export class HistoricalComponent implements OnInit {
   initThreeHoursChartData() {
     let i = 1;
     for (let weatherRecord of this.weatherRecords) {
-      let date = new Date(weatherRecord.date);
-      let dateFormat =
-        date.getDate() +
-        "." +
-        (date.getMonth() + 1) +
-        "." +
-        date.getFullYear() +
-        " " +
-        date.getHours() +
-        ":" +
-        date.getMinutes();
+      if (this.containsDate(weatherRecord.date)) {
+        let date = new Date(weatherRecord.date);
+        let dateFormat =
+          date.getDate() +
+          "." +
+          (date.getMonth() + 1) +
+          "." +
+          date.getFullYear() +
+          " " +
+          date.getHours() +
+          ":" +
+          date.getMinutes();
 
-      this.labels.push(dateFormat);
+        this.labels.push(dateFormat);
 
-      if (this.chartConfig.type == "temperature")
-        this.weatherDates.push({ x: i, y: weatherRecord.temperature });
+        if (this.chartConfig.type == "temperature")
+          this.weatherDates.push({ x: i, y: weatherRecord.temperature });
 
-      if (this.chartConfig.type == "wind")
-        this.weatherDates.push({ x: i, y: weatherRecord.wind });
+        if (this.chartConfig.type == "wind")
+          this.weatherDates.push({ x: i, y: weatherRecord.wind });
 
-      if (this.chartConfig.type == "pressure")
-        this.weatherDates.push({ x: i, y: weatherRecord.pressure });
+        if (this.chartConfig.type == "pressure")
+          this.weatherDates.push({ x: i, y: weatherRecord.pressure });
 
-      if (this.chartConfig.type == "precipitation")
-        this.weatherDates.push({ x: i, y: weatherRecord.precipitation });
-      i++;
+        if (this.chartConfig.type == "precipitation")
+          this.weatherDates.push({ x: i, y: weatherRecord.precipitation });
+        i++;
+      }
     }
+  }
+
+  parseDate(date) {
+    var parts = date.match(/(\d+)/g);
+    return new Date(parts[2], parts[1] - 1, parts[0]);
+  }
+
+  containsDate(date) {
+    let OneDayMS = 24 * 60 * 60 * 1000;
+    let dateRecord = new Date(date).getTime();
+    let dateTo =
+      new Date(this.parseDate(this.chartConfig.period.to.value)).getTime() +
+      OneDayMS;
+    let dateFrom = new Date(
+      this.parseDate(this.chartConfig.period.from.value)
+    ).getTime();
+
+    if (dateFrom <= dateRecord && dateTo >= dateRecord) return true;
+    return false;
   }
 
   /**
@@ -331,12 +352,20 @@ export class HistoricalComponent implements OnInit {
         scales: {
           xAxes: [
             {
-              display: true
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: 'Zeit'
+              }
             }
           ],
           yAxes: [
             {
-              display: true
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: 'Zeit'
+              }
             }
           ]
         }
