@@ -313,7 +313,7 @@ export class HistoricalComponent implements OnInit {
    * @return bool - beetween or not between 'true'|'false'
    */
   containsDate(date) {
-    let OneDayMS = 24 * 60 * 60 * 1000;
+    let OneDayMS = (24 * 60 * 60 * 1000) -1;
     let dateRecord = new Date(date).getTime();
     let dateTo =
       new Date(this.parseDate(this.chartConfig.period.to.value)).getTime() +
